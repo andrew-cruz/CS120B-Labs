@@ -13,7 +13,7 @@ int main(void)
 	DDRD = 0x00; PORTD = 0x00;
 	
 	unsigned char actual_weight = 0x00;
-	unsigned char edge_weight = 0x00;s
+	unsigned char edge_weight = 0x00;
 	
 	while(1){
 		//Get total weight
