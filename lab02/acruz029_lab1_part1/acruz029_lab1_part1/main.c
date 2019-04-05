@@ -1,8 +1,11 @@
 /*
- * acruz029_lab1_part1.c
+ * Andrew Cruz acruz029@ucr.edu
+ * Jonathan Kaneshiro jkane002@ucr.edu
+ * Lab Section: 24
+ * Assignment: Lab #2 Exercise #1
  *
- * Created: 4/4/2019 10:16:51 AM
- * Author : ucrcse
+ * I acknowledge all content contained herein, excluding template or example
+ * code. is my own original work.
  */ 
 
 #include <avr/io.h>
