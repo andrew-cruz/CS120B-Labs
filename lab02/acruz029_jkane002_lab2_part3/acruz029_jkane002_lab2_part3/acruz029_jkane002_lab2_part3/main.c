@@ -28,13 +28,14 @@ int main(void)
 		//unsigned char cntavail = 0x00;
 		tmp = PINA;
 		
-		
+		unsigned char cntavail = 0x00;
 		if(tmp != 0x0F) {
-			PORTC = ~tmp;
-			PORTC = SetBit(PORTC, 4, 0);
-			PORTC = SetBit(PORTC, 5, 0);
-			PORTC = SetBit(PORTC, 6, 0);
-			PORTC = SetBit(PORTC, 7, 0);
+			cntavail = GetBit(tmp, 0) == 0x00 ? cntavail + 0x01 : cntavail;
+			cntavail = GetBit(tmp, 1) == 0x00 ? cntavail + 0x01 : cntavail;
+			cntavail = GetBit(tmp, 2) == 0x00 ? cntavail + 0x01 : cntavail;
+			cntavail = GetBit(tmp, 3) == 0x00 ? cntavail + 0x01 : cntavail;
+			
+			PORTC =cntavail;
 		} else {
 			PORTC = 0x80;
 		}

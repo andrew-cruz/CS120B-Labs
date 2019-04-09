@@ -10,12 +10,13 @@
 int main(void)
 {
 	// Init output
-	DDRD = 0x00; PORTD = 0x00;
+	DDRD = 0xFF; PORTD = 0x00;
 	
 	unsigned char actual_weight = 0x00;
 	unsigned char edge_weight = 0x00;
 	
 	while(1){
+		PORTD = 0x00;
 		//Get total weight
 		actual_weight = PINA + PINB + PINC;
 		//Get edge weight difference
