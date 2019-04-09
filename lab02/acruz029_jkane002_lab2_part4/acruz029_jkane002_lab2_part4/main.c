@@ -10,6 +10,9 @@
 int main(void)
 {
 	// Init output
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0x00; PORTB = 0xFF;
+	DDRC = 0x00; PORTC = 0xFF;
 	DDRD = 0xFF; PORTD = 0x00;
 	
 	unsigned char actual_weight = 0x00;
@@ -17,10 +20,19 @@ int main(void)
 	
 	while(1){
 		PORTD = 0x00;
-		//Get total weight
-		actual_weight = PINA + PINB + PINC;
+		unsigned char tempA = PINA;
+		unsigned char tempB = PINB;
+		unsigned char tempC = PINC;
+		
+		if(tempA != 0x00 || tempB != 0x00 || tempC != 0x00) {
+				actual_weight = tempA + tempB + tempC;
+				if(actual_weight == 0)
+					actual_weight = 141;
+		} else {
+			actual_weight = tempA + tempB + tempC;
+		} 
 		//Get edge weight difference
-		edge_weight = PINA > PINC ? PINA - PINC : PINC - PINA;
+		edge_weight = tempA > tempC ? tempA - tempC : tempC - tempA;
 		
 		//Check to see if weight is exceeded
 		if (actual_weight > 140) {
