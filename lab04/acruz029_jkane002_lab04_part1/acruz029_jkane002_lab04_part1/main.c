@@ -27,7 +27,7 @@ void LightSwitch() {
 			}
 			break;
 		}
-		case FM_LED2ON: { //Led 2 turns on
+		case FM_LED2ON: { //State with LED2 turned on
 			if(PA_0) { //Button Press
 				LED_State = FM_LED1ON;
 			} else {
@@ -44,11 +44,11 @@ void LightSwitch() {
 	unsigned char tempB = 0x00;
 	
 	switch(LED_State) {
-		case FM_LED1ON : {
+		case FM_LED1ON : { //Set PB0 to 1 PB1 to 0
 			tempB = 0x01;		
 			break;
 		}
-		case FM_LED2ON: {
+		case FM_LED2ON: { //Set PB0 to 0 PB1 to 1
 			tempB = 0x02;
 			break;
 		}
@@ -58,6 +58,7 @@ void LightSwitch() {
 		}
 	} //State Actions
 	
+	//Assign To PORTB
 	PORTB = tempB;
 	
 	
@@ -66,6 +67,7 @@ void LightSwitch() {
 
 int main(void)
 {
+	//Init State state
     LED_State = FM_LED1ON;
 	
     while (1) 
