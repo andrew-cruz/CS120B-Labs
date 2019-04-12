@@ -12,7 +12,8 @@
 *
 * I acknowledge all content contained herein, excluding template or example
 * code, is my own original work.
-*/
+*/
+
 #include <avr/io.h>
 #define locked 0x00;
 #define unlocked 0x01;
