@@ -130,6 +130,7 @@ int main(void)
     {
 		SM_Door_Lock();
 		
+		
     }
 }
 
