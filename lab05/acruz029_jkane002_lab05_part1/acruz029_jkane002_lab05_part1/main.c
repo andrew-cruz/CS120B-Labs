@@ -36,7 +36,7 @@ int main(void)
 		tempB = 0x00;
 		tempA = PINA & 0x0F;
 		tempA = ~tempA & 0x0F;
-	
+		
 		if(tempA > 0) {
 			if(tempA <= 2) { //If fuel is between 1-2 light up PC6-PC5
 				tempB = tempB | 0x20;
@@ -53,6 +53,8 @@ int main(void)
 				} else if(tempA <= 15) { //If fuel is between 13-15 light up PC5-PC0
 				tempB = tempB | 0x3F;
 			}
+		} else if(tempA == 0) {
+			tempB = tempB | 0x40;
 		}
 		
 		//Set PORTB to light up
