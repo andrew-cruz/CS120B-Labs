@@ -3,11 +3,11 @@
  *	Lab Section: 24
  *	Assignment: Lab #9  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
- *		Using the ATmega1284’s PWM functionality, design a system where the notes: C4, D, E, F, G, A, B, and C5,  
- * from the table at the top of the lab, can be generated on the speaker by scaling up or down the eight note scale. 
- * Three buttons are used to control the system. One button toggles sound on/off. 
- * The other two buttons scale up, or down, the eight note scale. 
- * 
+ *		Using the ATmega1284ï¿½s PWM functionality, design a system where the notes: C4, D, E, F, G, A, B, and C5,
+ * from the table at the top of the lab, can be generated on the speaker by scaling up or down the eight note scale.
+ * Three buttons are used to control the system. One button toggles sound on/off.
+ * The other two buttons scale up, or down, the eight note scale.
+ *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
@@ -16,7 +16,7 @@
 
 void set_PWM(double frequency) {
 	static double current_frequency; // Keeps track of the currently set frequency
-	
+
 	// Will only update the registers when the frequency changes, otherwise allows
 	// music to play uninterrupted.
 	if (frequency != current_frequency) {
@@ -27,12 +27,12 @@ void set_PWM(double frequency) {
 		// 0.954 is smallest frequency that will not result in overflow
 		if (frequency < 0.954) { OCR3A = 0xFFFF; }
 		// prevents OCR0A from underflowing, using prescaler 64     // 31250 is largest frequency that will not result in underflow
-		
+
 		else if (frequency > 31250) { OCR3A = 0x0000; }
 
 		// set OCR3A based on desired frequency
 		else { OCR3A = (short)(8000000 / (128 * frequency)) - 1; }
-		
+
 		TCNT3 = 0; // resets counter
 		current_frequency = frequency; // Updates the current frequency
 	}
@@ -69,7 +69,7 @@ void Tick_fn() {
 		case Init: // init state
 			sound_state = Start;
 			break;
-		
+
 		case Start:
 		if((~PINA & 0x07) == 0x01){ // first button increments
 			sound_state = Inc;
@@ -87,17 +87,17 @@ void Tick_fn() {
 			sound_state = Start;
 			break;
 		}
-		
+
 		case Inc:
 			temp = notes[place];
 			sound_state = Wait;
 		break;
-		
+
 		case Dec:
 		temp = notes[place];
 		sound_state = Wait;
 		break;
-		
+
 		case Wait:
 		if((~PINA & 0x07) == 0x00){
 			sound_state = Init;
@@ -107,22 +107,22 @@ void Tick_fn() {
 			sound_state = Wait;
 			break;
 		}
-		
+
 		case Press:
 		sound_state = Wait;
 		break;
-		
+
 		default:
 		sound_state = Init;
 		break;
 	}
-	
+
 	switch(sound_state){ //actions
 		case Init:
 		break;
 		case Start:
 		break;
-		
+
 		case Inc:
 		if((place + 1) > high){ // remains at the high value
 			place = high;
@@ -132,7 +132,7 @@ void Tick_fn() {
 			++place;
 			break;
 		}
-		
+
 		case Dec:
 		if((place-1) < low){ //remains at the lowest val
 			place = low;
@@ -146,7 +146,7 @@ void Tick_fn() {
 		temp = notes[place];
 		set_PWM(temp);
 		break;
-		
+
 		case Press:
 		if(onoff){ // if 0, then off
 			PWM_off();
@@ -164,7 +164,7 @@ void Tick_fn() {
 		default:
 		break;
 	}
-	
+
 }
 
 int main(void)
@@ -172,14 +172,13 @@ int main(void)
     DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x00;
 	/* Replace with your application code */
-	
+
 	sound_state = Init;
 	PWM_on();
 	onoff = 1; // 1 is on automatically
 
-    while (1) 
+    while (1)
     {
 		Tick_fn();
     }
 }
-
