@@ -1,7 +1,7 @@
 /*	Partner 1 Name & E-mail: Andrew Cruz acruz029@ucr.edu
  *	Partner 2 Name & E-mail: Jonathan Kaneshiro jkane002@ucr.edu
  *	Lab Section: 24
- *	Assignment: Lab #8  Exercise #4 
+ *	Assignment: Lab #8  Exercise #4
  *	Exercise Description: [optional - include for your own benefit]
  *		Design a system where an LED is illuminated if enough light is detected from the photo resistor.
  *	I acknowledge all content contained herein, excluding template or example
@@ -25,19 +25,19 @@ int main(void)
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x00;
 	DDRD = 0xFF; PORTD = 0x00;
+	//Max value
 	unsigned char max = 0x38;
+	//Init ADC for reading
 	ADC_init();
-	
-    /* Replace with your application code */
-    while (1)
-    {
-		//unsigned short my_short = ADC;  // Value of ADC register now stored in variable x. 0x 0000 0011 1111 1111
-		
+
+  /* Replace with your application code */
+  while (1)
+  {
+		//Light up if reading is more than half
 		if(ADC >= max/2) {
 			PORTB = 0x01;
 		} else {
 			PORTB = 0x00;
 		}
-    }
+  }
 }
-
