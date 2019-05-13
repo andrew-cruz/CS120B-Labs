@@ -1,9 +1,14 @@
-/*
- * acruz029_jkane002_lab10_part1.c
+/*	Partner 1 Name & E-mail: Andrew Cruz acruz029@ucr.edu
+ *	Partner 2 Name & E-mail: Jonathan Kaneshiro jkane002@ucr.edu
+ *	Lab Section: 24
+ *	Assignment: Lab #10  Exercise #2
+ *	Exercise Description: [optional - include for your own benefit]
+ *	Modify the above example so the three LEDs light for 300 ms,
+ *	while PB3's LED still blinks 1 second on and 1 second off.
  *
- * Created: 5/7/2019 10:08:17 AM
- * Author : Andrew Cruz
- */ 
+ *	I acknowledge all content contained herein, excluding template or example
+ *	code, is my own original work.
+ */
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
@@ -140,8 +145,8 @@ void TickFct_Controller() {
 		TL_State = TickFct_ThreeLEDs(TL_State);
 		PORTB = TEMP_THREELED | (TEMP_BLINKLED << 3);
 		COUNT_THREE = 0;
-	} 
-	
+	}
+
 	COUNT_THREE++;
 	COUNT_BLINK++;
 }
@@ -152,7 +157,7 @@ int main(void)
 	//Set to 1 second
     TimerSet(100);
 	TimerOn();
-	
+
     while(1) {
 	    TickFct_Controller();
 		while(!TimerFlag);
@@ -160,4 +165,3 @@ int main(void)
     }
     return 0;
 }
-
