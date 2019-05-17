@@ -189,13 +189,13 @@ void State_Machine() {
 	}
 	LCD_ClearScreen();
 	LCD_WriteData(tempC);
-	PORTB = tempB;
+	//PORTB = tempB;
 }
 
 int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
-	DDRB = 0xFF; PORTB = 0x00;
+	//DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xFF; PORTC = '0' + 7; // LCD data lines
 	DDRD = 0xFF; PORTD = 0x00; // LCD control lines
 
